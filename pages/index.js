@@ -17,7 +17,7 @@ const Home = () => {
           <hr className="border-black" />
         </div>
         {/* PETA DISPARITAS */}
-        <div className="px-4 w-full pb-4 mb-4">
+        {/* <div className="px-4 w-full pb-4 mb-4">
           <label
             htmlFor="countries_disabled"
             className="block mb-6 text-center text-md font-medium text-gray-900"
@@ -25,7 +25,7 @@ const Home = () => {
             Peta Disparitas Harga Telur Ayam Ras 2023
           </label>
           <DisparitasMap />
-        </div>
+        </div> */}
         {/* GRAFIK PERGERAKAN */}
         <div className="p-4 ">
           <div className=" pb-4 ">
@@ -39,7 +39,7 @@ const Home = () => {
           </div>
         </div>
         {/* GRAFIK DISPARITAS */}
-        <div className="p-4 mb-4">
+        {/* <div className="p-4 mb-4">
           <label
             htmlFor="countries_disabled"
             className="block text-center text-md mb-8 font-medium text-gray-900"
@@ -47,7 +47,7 @@ const Home = () => {
             Peta Disparitas Harga Telur Ayam Ras 2023
           </label>
           <DisparitasChart />
-        </div>
+        </div> */}
       </div>
 
       <div className="col-span-1">
