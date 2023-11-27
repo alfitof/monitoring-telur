@@ -96,7 +96,7 @@ const Home = () => {
   };
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 p-12 bg-[#F4DFB6] rounded-xl m-14">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 px-4 py-6 lg:p-12 bg-[#F4DFB6] rounded-xl m-6 lg:m-14">
       <div className="col-span-1">
         {/* PETA DISPARITAS */}
         <div className="px-4 w-full pb-4 mb-4">
