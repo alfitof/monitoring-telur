@@ -33,15 +33,6 @@ const Home = () => {
     };
 
     fetchData();
-
-    const today = new Date();
-    setCurrentDate(today.toISOString().slice(0, 10));
-    setFormattedCurrentDate(formatDate(today));
-
-    const yesterday = new Date(today);
-    yesterday.setDate(today.getDate() - 1);
-    setPreviousDate(yesterday.toISOString().slice(0, 10));
-    setFormattedPreviousDate(formatDate(yesterday));
   }, []);
 
   useEffect(() => {
@@ -56,48 +47,31 @@ const Home = () => {
         }
 
         const data = await response.json();
-
-        // Menyimpan data dari details komoditas pertama (ubah sesuai kebutuhan)
         const allDetailsData = data.data.flatMap(
           (komoditas) => komoditas.details
         );
         setTableDataPenting(allDetailsData);
-
-        // Anda dapat menyimpan data detailsData dalam state atau menggunakannya sesuai kebutuhan
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
 
     fetchDatas();
-
-    // ... (kode date formatting tetap sama)
   }, []);
-
-  const handleChange = (e) => {
-    const inputDate = e.target.value;
-    const formattedDate = formatDate(new Date(inputDate));
-    setCurrentDate(inputDate);
-
-    // Update formattedPreviousDate and formattedCurrentDate based on the input IDs
-    if (e.target.id === "hari_ini") {
-      setFormattedCurrentDate(formattedDate);
-    } else if (e.target.id === "hari_kemarin") {
-      setFormattedPreviousDate(formattedDate);
-    }
-  };
-
-  const formatDate = (dateObject) => {
-    const day = String(dateObject.getDate()).padStart(2, "0");
-    const month = new Intl.DateTimeFormat("en-US", { month: "short" }).format(
-      dateObject
-    );
-    return `${day} ${month}`;
-  };
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 px-4 py-6 lg:p-12 bg-[#F4DFB6] rounded-xl m-6 lg:m-14">
       <div className="col-span-1">
+        <div className="p-4 mb-4">
+          <h1 className="text-2xl font-bold mb-2">
+            Perkembangan Harga Per Daerah
+          </h1>
+          <h1 className="text-sm mb-1">Komoditas: Telur Ayam Ras</h1>
+          <h1 className="text-sm mb-1">Provinsi: Nasional</h1>
+          <h1 className="text-sm mb-1">Kabupaten/Kota: Semua</h1>
+          <h1 className="text-sm mb-4">Pasar: Semua</h1>
+          <hr className="border-black" />
+        </div>
         {/* PETA DISPARITAS */}
         <div className="px-4 w-full pb-4 mb-4">
           <label
@@ -148,227 +122,109 @@ const Home = () => {
             <option selected>Ayam Telur Ras</option>
           </select>
         </div>
-        <div className=" grid grid-cols-2">
-          {/* INPUTAN PROVINSI */}
-          <div className=" p-4">
-            <label
-              htmlFor="countries_disabled"
-              className="block mb-2 text-sm font-medium text-gray-900"
-            >
-              Provinsi
-            </label>
-            <select
-              id="countries_disabled"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-            >
-              <option selected>Nasional</option>
-            </select>
-          </div>
-          {/* INPUTAN KAB/KOTA */}
-          <div className=" p-4">
-            <label
-              htmlFor="countries_disabled"
-              className="block mb-2 text-sm font-medium text-gray-900"
-            >
-              Kab/Kota
-            </label>
-            <select
-              id="countries_disabled"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-            >
-              <option selected>Semua</option>
-            </select>
-          </div>
+        <div className=" p-4">
+          <label
+            htmlFor="countries_disabled"
+            className="block mb-2 text-sm font-medium text-gray-900"
+          >
+            Provinsi
+          </label>
+          <select
+            id="countries_disabled"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+          >
+            <option selected>Nasional</option>
+          </select>
         </div>
-        <div className=" grid grid-cols-2">
+        <div className=" p-4">
+          <label
+            htmlFor="countries_disabled"
+            className="block mb-2 text-sm font-medium text-gray-900"
+          >
+            Kab/Kota
+          </label>
+          <select
+            id="countries_disabled"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+          >
+            <option selected>Semua</option>
+          </select>
+        </div>
+        <div className=" p-4">
+          <label
+            htmlFor="countries_disabled"
+            className="block mb-2 text-sm font-medium text-gray-900"
+          >
+            Pasar
+          </label>
+          <select
+            id="countries_disabled"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+          >
+            <option selected>Semua</option>
+          </select>
+        </div>
+
+        <div className=" grid grid-cols-2" id="bulan_tahun">
           {/* INPUTAN HARGA HARI INI */}
           <div className=" p-4">
             <label
-              htmlFor="hari_ini"
+              htmlFor="countries_disabled"
               className="block mb-2 text-sm font-medium text-gray-900"
             >
-              Harga Hari Ini
+              Pilih Bulan:
             </label>
-            <input
-              type="date"
-              id="hari_ini"
+            <select
+              id="countries_disabled"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-              value={currentDate}
-              onChange={handleChange}
-            />
+            >
+              <option selected value="1">
+                Januari
+              </option>
+              <option value="2">Februari</option>
+              <option value="3">Maret</option>
+              <option value="4">April</option>
+              <option value="5">Mei</option>
+              <option value="6">Juni</option>
+              <option value="7">Juli</option>
+              <option value="8">Agustus</option>
+              <option value="9">September</option>
+              <option value="10">Oktober</option>
+              <option value="11">November</option>
+              <option value="12">Desember</option>
+            </select>
           </div>
           {/* INPUTAN PERBANDINGAN HARGA*/}
           <div className=" p-4">
             <label
-              htmlFor="hari_kemarin"
+              htmlFor="countries_disabled"
               className="block mb-2 text-sm font-medium text-gray-900"
             >
-              Perbandingan Harga
+              Pilih Tahun:
             </label>
-            <input
-              type="date"
-              id="hari_kemarin"
+            <select
+              id="countries_disabled"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-              value={previousDate}
-              onChange={handleChange}
-            />
+            >
+              <option selected value="2019">
+                2019
+              </option>
+              <option value="2020">2020</option>
+              <option value="2021">2021</option>
+              <option value="2022">2022</option>
+              <option value="2023">2023</option>
+            </select>
           </div>
         </div>
-        {/* TABEL PERBANDINGAN HARGA BARANG*/}
-        <div className="px-4 pb-4 pt-2 ">
-          <h1 className="text-md font-semibold py-3 text-gray-900 mb-2 text-center">
-            Perbandingan Harga Barang Kebutuhan Pokok Nasional
-          </h1>
-          <div className="relative overflow-x-auto max-h-[400px] shadow-xl sm:rounded-lg">
-            <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
-              <thead className="text-xs text-gray-700 uppercase bg-[#DED0B6] ">
-                <tr>
-                  <th scope="col" className="px-6 py-3">
-                    Komoditas
-                  </th>
-                  <th scope="col" className="px-6 py-3">
-                    Satuan
-                  </th>
-                  <th scope="col" className="px-6 py-3">
-                    {formattedPreviousDate}
-                  </th>
-                  <th scope="col" className="px-6 py-3 min-w-[92px]">
-                    {formattedCurrentDate}
-                  </th>
-                  <th scope="col" className="px-6 py-3">
-                    Persentase
-                  </th>
-                  <th scope="col" className="px-6 py-3">
-                    Status
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {tableData.map((item, index) => (
-                  <tr
-                    key={index}
-                    className="bg-white border-b hover:bg-gray-50"
-                  >
-                    <th
-                      scope="row"
-                      className="px-6 py-3 font-medium text-gray-900 whitespace-nowrap"
-                    >
-                      {item.commodity_name}
-                    </th>
-                    <td className="px-6 py-3">{item.measurement}</td>
-                    <td className="px-6 py-3">{item.price_1}</td>
-                    <td className="px-6 py-3">{item.price_2}</td>
-                    <td className="px-6 py-3">{item.percent_change}%</td>
-                    <td className="px-6 py-3 uppercase font-bold text-xs">
-                      <div className="w-4 h-4">
-                        <Image
-                          src={`https://ews.kemendag.go.id/markers/${item.indicator_link}`}
-                          width={1000}
-                          height={1000}
-                        />
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div className="py-4">
-          <div className=" grid grid-cols-2">
-            {/* INPUTAN HARGA HARI INI */}
-            <div className=" p-4">
-              <label
-                htmlFor="hari_ini"
-                className="block mb-2 text-sm font-medium text-gray-900"
-              >
-                Harga Hari Ini
-              </label>
-              <input
-                type="date"
-                id="hari_ini"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                value={currentDate}
-                onChange={handleChange}
-              />
-            </div>
-            {/* INPUTAN PERBANDINGAN HARGA*/}
-            <div className=" p-4">
-              <label
-                htmlFor="hari_kemarin"
-                className="block mb-2 text-sm font-medium text-gray-900"
-              >
-                Perbandingan Harga
-              </label>
-              <input
-                type="date"
-                id="hari_kemarin"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                value={previousDate}
-                onChange={handleChange}
-              />
-            </div>
-          </div>
-        </div>
-        {/* TABEL PERBANDINGAN HARGA BARANG PENTING*/}
-        <div className="px-4 pb-4 pt-2 ">
-          <h1 className="text-md font-semibold py-3 text-gray-900 mb-2 text-center">
-            Perbandingan Harga Barang Penting
-          </h1>
-          <div className="relative overflow-x-auto max-h-[439px] shadow-xl sm:rounded-lg">
-            <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
-              <thead className="text-xs text-gray-700 uppercase bg-[#DED0B6]">
-                <tr>
-                  <th scope="col" className="px-6 py-3">
-                    Komoditas
-                  </th>
-                  <th scope="col" className="px-6 py-3">
-                    Satuan
-                  </th>
-                  <th scope="col" className="px-6 py-3 min-w-[92px]">
-                    {formattedPreviousDate}
-                  </th>
-                  <th scope="col" className="px-6 py-3 min-w-[92px]">
-                    {formattedCurrentDate}
-                  </th>
-                  <th scope="col" className="px-6 py-3">
-                    Persentase
-                  </th>
-                  <th scope="col" className="px-6 py-3">
-                    Status
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {tableDataPenting.map((item, index) => (
-                  <tr
-                    key={index}
-                    className="bg-white border-b hover:bg-gray-50"
-                  >
-                    <th
-                      scope="row"
-                      className="px-6 py-3 font-medium text-gray-900 whitespace-nowrap"
-                    >
-                      {item.variant}
-                    </th>
-                    <td className="px-6 py-3">{item.satuan}</td>
-                    <td className="px-6 py-3">{item.hargaperbandingan}</td>
-                    <td className="px-6 py-3">{item.harga}</td>
-                    <td className="px-6 py-3">{item.persen}%</td>
-                    <td className="px-6 py-3 uppercase font-bold text-xs">
-                      <div className="w-4 h-4">
-                        <Image
-                          src={`https://ews.kemendag.go.id/markers/${item.indikator}`}
-                          width={1000}
-                          height={1000}
-                        />
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+        <div className="p-4 mt-2 w-full">
+          <button
+            className="bg-blue-500 w-full text-white px-4 py-2 rounded-lg"
+            onClick={() => {
+              // Logika
+            }}
+          >
+            Lihat Data
+          </button>
         </div>
       </div>
     </div>
