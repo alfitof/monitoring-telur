@@ -141,7 +141,7 @@ const Home = () => {
             htmlFor="countries_disabled"
             className="block mb-2 text-sm font-medium text-gray-900"
           >
-            Kab/Kota
+            Kabupaten/Kota
           </label>
           <select
             id="countries_disabled"
