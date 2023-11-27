@@ -60,7 +60,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 px-4 py-6 lg:p-12 bg-[#F4DFB6] rounded-xl m-6 lg:m-14">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 px-4 py-6 lg:p-12 bg-[#f8e5bc] rounded-xl m-6 lg:m-14">
       <div className="col-span-1">
         <div className="p-4 mb-4">
           <h1 className="text-2xl font-bold mb-2">
@@ -218,7 +218,7 @@ const Home = () => {
         </div>
         <div className="p-4 mt-2 w-full">
           <button
-            className="bg-blue-500 w-full text-white px-4 py-2 rounded-lg"
+            className="bg-[#5F6F52] w-full text-white px-4 py-2 rounded-lg"
             onClick={() => {
               // Logika
             }}
