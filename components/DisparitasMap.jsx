@@ -5,10 +5,9 @@ function Maps() {
   const [provinceData, setProvinceData] = useState(null);
 
   useEffect(() => {
-    // Panggil API di sini
     fetch(
       "https://sp2kp-be-public.kemendag.go.id/api/map/get-data-list?idKomoditas=1613&tanggalMap=2023-11-27&token=cJAqgtf@ZWHGCRGngkGnjYKtPcsXnM!@uNWIMQEe"
-    ) // Gantilah URL_API_ANDA dengan URL API yang sesuai
+    )
       .then((response) => response.json())
       .then((data) => {
         setProvinceData(data.data);
@@ -21,8 +20,6 @@ function Maps() {
   if (!provinceData) {
     return <p>Loading...</p>;
   }
-
-  const allProvinceCodes = provinceData.map((province) => province.id);
 
   const chartData = [
     ["Province", "Nama", "Harga Telur"],
@@ -50,7 +47,7 @@ function Maps() {
         ]}
         chartType="GeoChart"
         width="100%"
-        height="350px" // Meningkatkan tinggi peta
+        height="350px"
         data={chartData}
         options={{
           region: "ID",

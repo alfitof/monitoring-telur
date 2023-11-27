@@ -5,10 +5,9 @@ const HargaChart = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    // Panggil API di sini
     fetch(
       "https://sp2kp-be-public.kemendag.go.id/api/grafik_harga?variant=1613&tanggal=2023-11-27&token=cJAqgtf@ZWHGCRGngkGnjYKtPcsXnM!@uNWIMQEe"
-    ) // Gantilah URL_API_ANDA dengan URL API yang sesuai
+    )
       .then((response) => response.json())
       .then((data) => {
         setData(data);

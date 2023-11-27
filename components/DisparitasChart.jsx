@@ -6,10 +6,9 @@ const DisparitasChart = () => {
   const [provinceData, setProvinceData] = useState(null);
 
   useEffect(() => {
-    // Panggil API di sini
     fetch(
       "https://sp2kp-be-public.kemendag.go.id/api/map/get-data-list?idKomoditas=1613&tanggalMap=2023-11-27&token=cJAqgtf@ZWHGCRGngkGnjYKtPcsXnM!@uNWIMQEe"
-    ) // Gantilah URL_API_ANDA dengan URL API yang sesuai
+    )
       .then((response) => response.json())
       .then((data) => {
         setProvinceData(data.data);
@@ -22,8 +21,6 @@ const DisparitasChart = () => {
   if (!provinceData) {
     return <p>Loading...</p>;
   }
-
-  const allProvinceCodes = provinceData.map((province) => province.id);
 
   const chartData = [
     ["Nama", "Harga Telur"],
