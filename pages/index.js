@@ -1,64 +1,8 @@
-import Image from "next/image";
-import { Inter } from "next/font/google";
 import DisparitasMap from "@/components/DisparitasMap";
-import React, { useState, useEffect } from "react";
-import { Datepicker } from "flowbite-react";
 import HargaChart from "@/components/HargaChart";
 import DisparitasChart from "@/components/DisparitasChart";
 
 const Home = () => {
-  const [currentDate, setCurrentDate] = useState("");
-  const [previousDate, setPreviousDate] = useState("");
-  const [formattedCurrentDate, setFormattedCurrentDate] = useState("");
-  const [formattedPreviousDate, setFormattedPreviousDate] = useState("");
-  const [tableData, setTableData] = useState([]);
-  const [tableDataPenting, setTableDataPenting] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          "https://sp2kp-be-public.kemendag.go.id/api/komoditas_table/get-data-list?idprov=&idkab=&tglharga=2023-11-27&tglperbandingan=2023-11-26&token=cJAqgtf@ZWHGCRGngkGnjYKtPcsXnM!@uNWIMQEe"
-        );
-
-        if (!response.ok) {
-          throw new Error("Failed to fetch data");
-        }
-
-        const data = await response.json();
-        setTableData(data.data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    const fetchDatas = async () => {
-      try {
-        const response = await fetch(
-          "https://sp2kp-be-public.kemendag.go.id/api/table_harga/harga_barang_penting?idprov=&idkab=&minggu=2023-W48&minggu_perbandingan=2023-W47&token=cJAqgtf@ZWHGCRGngkGnjYKtPcsXnM!@uNWIMQEe"
-        );
-
-        if (!response.ok) {
-          throw new Error("Failed to fetch data");
-        }
-
-        const data = await response.json();
-        const allDetailsData = data.data.flatMap(
-          (komoditas) => komoditas.details
-        );
-        setTableDataPenting(allDetailsData);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchDatas();
-  }, []);
-
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 px-4 py-6 lg:p-12 bg-[#f8e5bc] rounded-xl m-6 lg:m-14">
       <div className="col-span-1">
@@ -78,7 +22,7 @@ const Home = () => {
             htmlFor="countries_disabled"
             className="block mb-6 text-center text-md font-medium text-gray-900"
           >
-            Peta Disparitas Harga Telur Ayam Ras {formattedCurrentDate} 2023
+            Peta Disparitas Harga Telur Ayam Ras 2023
           </label>
           <DisparitasMap />
         </div>
@@ -100,7 +44,7 @@ const Home = () => {
             htmlFor="countries_disabled"
             className="block text-center text-md mb-8 font-medium text-gray-900"
           >
-            Peta Disparitas Harga Telur Ayam Ras {formattedCurrentDate} 2023
+            Peta Disparitas Harga Telur Ayam Ras 2023
           </label>
           <DisparitasChart />
         </div>
