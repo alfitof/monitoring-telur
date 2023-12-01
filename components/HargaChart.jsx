@@ -1,50 +1,47 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Chart from "react-google-charts";
 
-const HargaChart = () => {
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    fetch(
-      "https://sp2kp-be-public.kemendag.go.id/api/grafik_harga?variant=1613&tanggal=2023-11-27&token=cJAqgtf@ZWHGCRGngkGnjYKtPcsXnM!@uNWIMQEe"
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        setData(data);
-      })
-      .catch((error) => {
-        console.error("Error fetching price data:", error);
-      });
-  }, []);
-
-  if (!data) {
-    return <p>Loading...</p>;
+const HargaChart = ({ data }) => {
+  if (!data || Object.keys(data).length === 0) {
+    return (
+      <p className="text-center text-red-500">Masukan data terlebih dahulu</p>
+    );
   }
+
   const chartData = [
-    ["Date", "Price"],
-    ...data.map((price) => [price.tanggal, parseInt(price.harga, 10)]),
+    ["Bulan", "Harga"],
+    ...Object.entries(data).map(([month, price]) => [month, price]),
   ];
 
   const chartOptions = {
     hAxis: {
-      title: "Date",
+      title: "Bulan",
     },
     vAxis: {
-      title: "Price",
+      title: "Harga",
     },
     colors: ["#5F6F52"],
+    animation: {
+      startup: true,
+      easing: "out",
+      duration: 1000,
+      startupExp: 3,
+      frames: 60,
+      sequenceNumber: 1,
+    },
   };
 
   return (
-    <Chart
-      width={"100%"}
-      height={"400px"}
-      chartType="LineChart"
-      loader={<div>Loading...</div>}
-      data={chartData}
-      options={chartOptions}
-      rootProps={{ "data-testid": "1" }}
-    />
+    <div>
+      <Chart
+        width={"100%"}
+        height={"400px"}
+        chartType="LineChart"
+        data={chartData}
+        options={chartOptions}
+        rootProps={{ "data-testid": "1" }}
+      />
+    </div>
   );
 };
 
